@@ -11,6 +11,7 @@ let amount2 = +prompt('Во сколько это обойдется?');
 let budgetMonth = money - (amount1 + amount2);
 let butgetDay = budgetMonth / 30;
 let ambition = Math.ceil(mission / budgetMonth);
+let lvlIncome;
 
 
 
@@ -26,7 +27,8 @@ let ambition = Math.ceil(mission / budgetMonth);
 };
 */
 
-let lvlIncome = (money >= 30000) ? 'У вас высокий уровень дохода!' :
+
+lvlIncome = (money >= 30000) ? 'У вас высокий уровень дохода!' :
   (10000 <= money) ? 'У вас средний уровень дохода!' :
   (0 <= money) ? 'У вас низкий уровень дохода!' :
   'Что-то пошло не так';
