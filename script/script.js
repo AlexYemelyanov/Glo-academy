@@ -1,17 +1,35 @@
-let num = 266219,
-  arr = [],
-  sNumber = num.toString();
-console.log(sNumber);
+let lang = prompt('Введите язык по примеру ru или eng');
+let langArray = [];
+let namePerson = prompt('Введите ваше имя:');
+let person;
 
-for (let i = 0, len = sNumber.length; i < len; i += 1) {
-  arr.push(+sNumber.charAt(i));
+if (lang === 'ru') {
+  message = ('Понедельник, вторник, среда, четверг, пятница, суббота, воскресенье');
+} else if (lang === 'eng') {
+  message = ('Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday');
+};
+
+switch (lang) {
+  case 'ru':
+    console.log('Понедельник, вторник, среда, четверг, пятница, суббота, воскресенье');
+    break;
+  case 'eng':
+    console.log('Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday');
+    break;
 }
 
-let multiNum = arr.reduce((sum, current) => {
-  return sum * current;
-});
-console.log(multiNum);
-let expNum = multiNum ** 3;
 
-let firstNums = expNum.toString();
-console.log(firstNums.slice(0, 2));
+langArray['ru'] = ['Понедельник, вторник, среда, четверг, пятница, суббота, воскресенье'];
+langArray['eng'] = ['Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday'];
+
+
+person = (namePerson == 'Артем') ? 'Директор' :
+  (namePerson == 'Максим') ? 'Преподаватель' :
+  (namePerson == 'Александр') ? 'Преподаватель' :
+  'Студент';
+
+
+
+console.log(message);
+console.log(langArray[lang]);
+alert(person);
