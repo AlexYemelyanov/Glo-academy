@@ -23,11 +23,10 @@ isNumber = function (n) {
 
 
 start = function () {
-  money = prompt('Ваш месячный доход:');
 
   do {
     money = prompt('Ваш месячный доход:');
-  };
+  }
 
   while (!isNumber(money))
 
