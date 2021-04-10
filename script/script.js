@@ -1,41 +1,42 @@
 'use strict';
 
-
-let x = 1 + (Math.random() * 100);
-x = Math.round(x);
-
-
-
-//let guesseFaild = alert('');
-
-
-function comparsion() {
+function guesseNum() {
+  let num = 1 + (Math.random() * 100);
+  num = Math.round(num);
   let guesseCount = 1;
-  let userGuesse = +prompt('Введите число!');
-  let att = confirm('Попытка № ' + guesseCount);
+  let startGame = confirm('Угадай число от 1 до 100');
 
-  //let faild = alert(guesseFaild);
+  function game() {
+    let guesse = prompt('Введи число от 1 до 100');
 
-  if (userGuesse == x) {
-    return alert('Вы угадали!');
+    function newGame() {
+      let new = confirm('Хочешь сыграть ещё раз?');
+      if (new === true) {
+        guesseNum();
+      } else {
+        alert('Всего доброго!');
+      }
+    };
 
-
-  } else {
-    if (userGuesse > x) {
-      alert('Загаданное число меньше!')
-    }
-    if (userGuesse < x) {
-      alert('Загаданное число больше!')
+    function count() {
+      if (guesseCount < 10) game();
+      if (guesseCount == 10) {
+        alert('Попытки закончились!');
+        newGame();
+      }
+    };
+    if (guesse == num) {
+      alert('Поздравляю ты угадал!');
+      newGame();
+    } else {
+      if (guesse < num) {
+        alert('Загаданное число меньше! Осталось попыток ' + (10 - guesseCount++))
+      } else if (guesse > num) {
+        alert('Загаданное число больше! Осталось попыток ' + (10 - guesseCount++))
+      } else {
+        alert('Введите число!');
+        game();
+      }
     }
   }
-  if (guesseCount != 10) {
-    comparsion();
-  } else if (guesseCount === 10) {
-    alert('Game Over!');
-  }
-  guesseCount++
-  //guesseFaild = userGuesse + '';
 }
-
-comparsion();
-console.log(x);
