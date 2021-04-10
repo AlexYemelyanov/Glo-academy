@@ -5,16 +5,25 @@ function guesseNum() {
   num = Math.round(num);
   let guesseCount = 1;
   let startGame = confirm('Угадай число от 1 до 100');
+  if (startGame === true) {
+    game();
+  } else {
+    alert('Игра окончена')
+
+  };
+
+
 
   function game() {
     let guesse = prompt('Введи число от 1 до 100');
 
     function newGame() {
-      let new = confirm('Хочешь сыграть ещё раз?');
-      if (new === true) {
+      let newG = confirm('Хочешь сыграть ещё раз?')
+      if (newG === true) {
         guesseNum();
       } else {
-        alert('Всего доброго!');
+        alert('Игра окончена');
+        return false;
       }
     };
 
@@ -30,13 +39,17 @@ function guesseNum() {
       newGame();
     } else {
       if (guesse < num) {
-        alert('Загаданное число меньше! Осталось попыток ' + (10 - guesseCount++))
+        alert('Загаданное число больше! Осталось попыток ' + (10 - guesseCount++));
+        count();
       } else if (guesse > num) {
-        alert('Загаданное число больше! Осталось попыток ' + (10 - guesseCount++))
+        alert('Загаданное число меньше! Осталось попыток ' + (10 - guesseCount++));
+        count();
       } else {
         alert('Введите число!');
         game();
       }
     }
   }
+  game();
 }
+guesseNum()
