@@ -1,15 +1,28 @@
-let arr = ['244', '1000', '4000', '6424', '2543', '5014214', '4241235'];
-//
-arr.forEach(function (i) {
-  if (i.startsWith('2') || i.startsWith('4')) {
-    console.log(i);
-  };
-});
+'use strict';
+const week = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
+const day = document.getElementById('fordays');
+const todayDay = new Date("2021-04-11");
+console.log(week.length);
 
-simpleNum:
-  for (i = 2; i <= 100; i++) {
-    for (j = 2; j < i; j++) {
-      if (i % j == 0) continue simpleNum;
-    };
-    console.log(i + ' Делитель этого чилсла: 1 и ' + i);
-  };
+const days = () => {
+  week.forEach((item, i) => {
+    let newdiv = document.createElement('div');
+    if (i === (6 + todayDay.getDay()) % 7) {
+      //console.log(todayDay.getDay());
+      newdiv.classList.add('today');
+      newdiv.textContent = week[i];
+    }
+    if (item == 'Суббота' || item == 'Воскресенье') {
+      newdiv.classList.add('italic');
+      newdiv.textContent = week[i];
+    } else {
+      newdiv.textContent = week[i];
+    }
+    day.appendChild(newdiv);
+
+  });
+};
+days();
+
+//console.log(todayDay);
+//console.log(todayDay.getDay())

@@ -1,3 +1,10 @@
 body {
   background-color: brown;
 }
+    .today {
+      font-weight: 900;
+    }
+
+    .italic {
+      font-style: italic;
+    }
