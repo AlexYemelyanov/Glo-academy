@@ -8,6 +8,29 @@ isNotANumber = function (n) {
 };
 
 
+const btnStart = document.getElementById('start');
+const inComeAdd = document.getElementsByTagName('button')[0];
+const expensesAdd = document.getElementsByTagName('button')[1];
+const depositCheck = document.querySelector('#deposit-check');
+const additionalInComeItem = document.querySelectorAll('.additional_income-item');
+const budgetDayValue = document.getElementsByClassName('result-total')[1];
+const expensesMonthValue = document.getElementsByClassName('result-total')[2];
+const additionalInComeValue = document.getElementsByClassName('result-total')[3];
+const additionalExpensesValue = document.getElementsByClassName('result-total')[4];
+const inComePeriodValue = document.getElementsByClassName('result-total')[5];
+const targetMonthValue = document.getElementsByClassName('result-total')[6];
+const salaryAmount = document.querySelector('.salary-amount');
+const inComeTitle = document.querySelector('.income-title');
+const inComeAmount = document.querySelector('.income-amount');
+const expensesTitle = document.querySelector('.expenses-title');
+const expensesAmount = document.querySelector('.expenses-amount');
+const additionalExpensesItem = document.querySelector('.additional_expenses-item');
+const depositAmount = document.querySelector('.deposit-amount');
+const depositPercent = document.querySelector('.deposit-percent');
+const targetAmount = document.querySelector('.target-amount');
+const periodSelect = document.querySelector('.period-select');
+const budgetMonthValue = document.querySelector('.budget_month-value');
+
 
 let start = function () {
   do {
