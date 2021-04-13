@@ -1,7 +1,7 @@
 function getNoun(number, one, two, five) {
   let n = Math.abs(number);
   n %= 100;
-  if (n >= 5 && n <= 59) {
+  if (n >= 5 && n <= 20) {
     return five;
   }
   n %= 10;
@@ -47,7 +47,9 @@ function newTypeOfDate() {
     'часов') + ' ' + minutes + ' ' + getNoun(minutes, 'минута', 'минуты', 'минут') + ' ' + seconds + ' ' + getNoun(seconds, 'секунда', 'секунды', 'секунд')
 
 }
-document.getElementById('current_date_time').innerHTML = newTypeOfDate();
+setInterval(function () {
+  document.getElementById('current_date_time').innerHTML = newTypeOfDate();
+}, 1000);
 
 
 
