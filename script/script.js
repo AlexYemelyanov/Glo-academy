@@ -38,6 +38,8 @@ heading[4].textContent = 'Книга 3. this и Прототипы Объект�
 newElem.textContent = 'Глава 8: За пределами ES6';
 elems[26].before(newElem);
 
+body.style.backgroundImage = "url(image/you-dont-know-js.jpg)";
+
 
 
 
