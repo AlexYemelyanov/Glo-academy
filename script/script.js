@@ -39,6 +39,8 @@ let placeholderTitle = document.querySelectorAll('input[placeholder="Наиме�
 
 
 
+
+
 let appData = {
   budget: 0,
   inCome: {},
@@ -54,16 +56,18 @@ let appData = {
   moneyDeposit: 0,
 
 
-  start: function () {
+
+
+  start() {
 
     if (salaryAmount.value === '') {
       function prevDef(click) {
         click.preventDefault();
 
       }
-      return prevDef
+      return prevDef();
     }
-    appData.budget = +salaryAmount.value
+    appData.budget = +salaryAmount.value;
 
     appData.getExpenses();
 
@@ -72,15 +76,15 @@ let appData = {
 
 
     appData.getExpensesMonth();
-
+    appData.getInComeMonth();
 
     appData.getPeriodAmount();
     appData.getAddExpenses();
     appData.getAddInCome();
+
     appData.getInCome();
     appData.getBudget();
     appData.showResult();
-
 
   },
 
@@ -148,9 +152,11 @@ let appData = {
       inComeAdd.style.display = 'none';
     }
     appData.checkInput();
+
   },
 
   getInCome() {
+
     inComeItems.forEach(function (item) {
       let itemInCome = item.querySelector('.income-title').value;
       let cashInCome = item.querySelector('.income-amount').value;
@@ -163,6 +169,7 @@ let appData = {
   },
 
   getAddInCome() {
+
     additionalInComeItem.forEach(function (item) {
       let itemValue = item.value.trim();
       if (itemValue !== '') {
@@ -170,6 +177,7 @@ let appData = {
       }
     });
   },
+
   getPeriodAmount() {
     periodAmount.innerHTML = periodSelect.value;
   },
@@ -216,30 +224,26 @@ let appData = {
 
   },
 
+  getInComeMonth() {
 
+
+
+
+    for (let key in this.inCome) {
+      appData.inComeMonth += +this.inCome[key]
+    }
+    return appData.inComeMonth;
+  },
 
   getExpensesMonth() {
 
-    let sum = 0;
 
-
-    function countFunc() {
-      let exp = prompt('Введите обязательную статью расходов:');
-      while (!isNotANumber(exp)) {
-        exp = prompt('Введите обязательную статью расходов:');
-      };
-      sum = +prompt('Во сколько это обойдется?');
-      appData.expenses[exp] = sum;
-      while (!isNumber(sum)) {
-        sum = +prompt('Во сколько это обойдется?');
-      }
-    };
 
 
     for (let key in this.expenses) {
-      appData.expensesMonth = +this.expenses[key] + +this.expenses[key];
+      appData.expensesMonth += +this.expenses[key]
     }
-    return appData.expensesMonth
+    return appData.expensesMonth;
   },
   getInfoDeposit() {
     if (appData.deposit) {
@@ -257,6 +261,11 @@ let appData = {
     return appData.budgetMonth * periodSelect.value;
   },
 };
+
+//let startThis = appData.start.bind(appData);
+//let inComeBlock = appData.addInComeBlock.bind(appData);
+//let expensesBlock = appData.addExpensesBlock.bind(appData);
+
 appData.checkInput();
 
 btnStart.addEventListener('click', appData.start);
@@ -266,7 +275,7 @@ periodSelect.addEventListener('input', appData.getPeriodAmount);
 expensesAdd.addEventListener('click', appData.addExpensesBlock);
 
 
-console.log(placeholderTitle);
+
 
 
 
