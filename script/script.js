@@ -43,7 +43,7 @@ let placeholderTitle = document.querySelectorAll('input[placeholder="Наиме�
 
 let appData = {
   budget: 0,
-  inCome: {},
+  income: {},
   inComeMonth: 0,
   addIncome: [],
   expenses: {},
@@ -69,20 +69,17 @@ let appData = {
     }
     appData.budget = +salaryAmount.value;
 
+    appData.getInCome();
     appData.getExpenses();
-
-
-
-
 
     appData.getExpensesMonth();
     appData.getInComeMonth();
 
     appData.getPeriodAmount();
     appData.getAddExpenses();
+
     appData.getAddInCome();
 
-    appData.getInCome();
     appData.getBudget();
     appData.showResult();
 
@@ -156,13 +153,12 @@ let appData = {
   },
 
   getInCome() {
-
     inComeItems.forEach(function (item) {
-      let itemInCome = item.querySelector('.income-title').value;
-      let cashInCome = item.querySelector('.income-amount').value;
+      let itemIncome = item.querySelector('.income-title').value;
+      let cashIncome = item.querySelector('.income-amount').value;
 
-      if (itemInCome !== '' && cashInCome !== '') {
-        appData.inCome[itemInCome] = cashInCome;
+      if (itemIncome !== '' && cashIncome !== '') {
+        appData.income[itemIncome] = cashIncome;
       }
 
     });
@@ -226,25 +222,20 @@ let appData = {
 
   getInComeMonth() {
 
-
-
-
-    for (let key in this.inCome) {
-      appData.inComeMonth += +this.inCome[key]
+    for (let key in this.income) {
+      appData.inComeMonth += +this.income[key];
     }
     return appData.inComeMonth;
   },
 
   getExpensesMonth() {
 
-
-
-
     for (let key in this.expenses) {
-      appData.expensesMonth += +this.expenses[key]
+      appData.expensesMonth += +this.expenses[key];
     }
     return appData.expensesMonth;
   },
+
   getInfoDeposit() {
     if (appData.deposit) {
       appData.percentDeposit = prompt('Какой годовой процент?');
