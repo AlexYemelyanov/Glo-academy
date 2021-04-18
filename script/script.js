@@ -34,6 +34,8 @@ let periodSelect = document.querySelector('.period-select');
 let periodAmount = document.querySelector('.period-amount');
 let budgetMonthValue = document.querySelector('.budget_month-value');
 let incomeItem = document.querySelectorAll('.income-items');
+let placeholderTitle = document.querySelectorAll('input[placeholder="Наименование"]'),
+  placeholderAmount = document.querySelectorAll('input[placeholder="Сумма"]');
 
 
 
@@ -102,12 +104,15 @@ let appData = {
   addExpensesBlock() {
 
     let cloneExpensesItem = expensesItems[0].cloneNode(true);
+    cloneExpensesItem.querySelector('.expenses-title').value = '';
+    cloneExpensesItem.querySelector('.expenses-amount').value = '';
 
     expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesAdd);
     expensesItems = document.querySelectorAll('.expenses-items');
     if (expensesItems.length === 3) {
       expensesAdd.style.display = 'none';
     }
+    appData.checkInput();
   },
 
   getExpenses() {
@@ -133,12 +138,16 @@ let appData = {
   addInComeBlock() {
 
     let cloneInComeItem = inComeItems[0].cloneNode(true);
+    cloneInComeItem.querySelector('.income-title').value = '';
+    cloneInComeItem.querySelector('.income-amount').value = '';
 
     inComeItems[0].parentNode.insertBefore(cloneInComeItem, inComeAdd);
     inComeItems = document.querySelectorAll('.income-items');
+
     if (inComeItems.length === 3) {
       inComeAdd.style.display = 'none';
     }
+    appData.checkInput();
   },
 
   getInCome() {
@@ -189,6 +198,25 @@ let appData = {
 
   },
 
+  checkInput() {
+    const placeholderTitle = document.querySelectorAll('input[placeholder="Наименование"]'),
+      placeholderAmount = document.querySelectorAll('input[placeholder="Сумма"]');
+
+    placeholderAmount.forEach(input => {
+      input.addEventListener('input', event => {
+        event.target.value = event.target.value.replace(/\D/, '');
+      });
+    });
+
+    placeholderTitle.forEach(input => {
+      input.addEventListener('input', event => {
+        event.target.value = event.target.value.replace(/[a-zA-Z0-9-]/, '');
+      });
+    });
+
+  },
+
+
 
   getExpensesMonth() {
 
@@ -229,6 +257,7 @@ let appData = {
     return appData.budgetMonth * periodSelect.value;
   },
 };
+appData.checkInput();
 
 btnStart.addEventListener('click', appData.start);
 inComeAdd.addEventListener('click', appData.addInComeBlock);
@@ -237,7 +266,7 @@ periodSelect.addEventListener('input', appData.getPeriodAmount);
 expensesAdd.addEventListener('click', appData.addExpensesBlock);
 
 
-
+console.log(placeholderTitle);
 
 
 
