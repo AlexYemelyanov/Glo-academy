@@ -12,8 +12,8 @@ isNotANumber = function (n) {
 
 let btnStart = document.getElementById('start');
 let btnCancel = document.getElementById('cancel');
-let inComeAdd = document.getElementsByTagName('button')[0];
-let expensesAdd = document.getElementsByTagName('button')[1];
+let inComeAdd = document.querySelector('.income_add');
+let expensesAdd = document.querySelector('.expenses_add');
 let depositCheck = document.querySelector('#deposit-check');
 let additionalInComeItem = document.querySelectorAll('.additional_income-item');
 let budgetDayValue = document.getElementsByClassName('result-total')[1];
@@ -58,11 +58,29 @@ let appData = {
 
 
   start() {
-    appData.budget = +salaryAmount.value;
+
 
     if (salaryAmount.value === '') {
-      btnStart.disabled = true;
-    };
+      () => {
+        btnStart.setAtribute('disabled', 'disabled');
+      }
+      return;
+    }
+    let allInputs = document.querySelectorAll('input[type=text]');
+    allInputs.forEach((item) => {
+      item.setAttribute('disabled', 'disabled');
+    });
+
+
+    inComeAdd.disabled = true;
+
+
+    expensesAdd.disabled = true;
+
+
+
+
+
 
     function buttonCancel() {
       btnStart.style.display = 'none';
@@ -70,6 +88,7 @@ let appData = {
     }
     buttonCancel();
     console.log(this);
+    appData.budget = +salaryAmount.value;
 
     appData.getInCome();
     appData.getExpenses();
@@ -151,7 +170,7 @@ let appData = {
     expensesMonthValue.value = this.expensesMonth;
     additionalExpensesValue.value = this.addExpenses;
     additionalInComeItem.value = this.addIncome;
-    targetMonthValue.value = this.getTargetMonth();
+    targetMonthValue.value = '';
 
     inComePeriodValue.value = this.calcSaveMoney();
     additionalInComeValue.value = this.inComeMonth;
@@ -168,7 +187,7 @@ let appData = {
     if (expensesItems.length === 3) {
       expensesAdd.style.display = 'none';
     }
-    this.checkInput();
+    appData.checkInput();
   },
 
   removeExpensesBlock() {
@@ -221,7 +240,7 @@ let appData = {
     if (inComeItems.length === 3) {
       inComeAdd.style.display = 'none';
     }
-    this.checkInput();
+    appData.checkInput();
   },
 
   removeInComeBlock() {
