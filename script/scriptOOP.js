@@ -54,7 +54,7 @@ const AppData = function () {
   this.deposit = false;
   this.percentDeposit = 0;
   this.moneyDeposit = 0;
-
+  this.checkInput();
 };
 
 AppData.prototype.check = function () {
@@ -106,7 +106,7 @@ AppData.prototype.start = function () {
 
   this.getBudget();
   this.showResult();
-  console.log(this.addExpenses);
+  console.log(this);
 
 };
 
@@ -367,42 +367,16 @@ AppData.prototype.getInfoDeposit = function () {
 AppData.prototype.calcSaveMoney = function () {
   return this.budgetMonth * periodSelect.value;
 };
+AppData.prototype.eventListeners = function () {
+  btnStart.addEventListener('click', this.start.bind(appData));
+  btnCancel.addEventListener('click', this.reset.bind(appData));
+  inComeAdd.addEventListener('click', this.addInComeBlock.bind(appData));
+  periodSelect.addEventListener('input', this.getPeriodAmount.bind(appData));
+  expensesAdd.addEventListener('click', this.addExpensesBlock.bind(appData));
+  periodSelect.addEventListener('input', this.getPeriodAmount.bind(appData));
+};
 
 const appData = new AppData();
+appData.eventListeners();
 
 console.log(appData);
-
-
-function startThis() {
-  btnStart.addEventListener('click', this.start);
-};
-
-function cancelThis() {
-  btnCancel.addEventListener('click', this.reset);
-};
-
-function incBlock() {
-  inComeAdd.addEventListener('click', this.addInComeBlock);
-}
-
-function expBlock() {
-  expensesAdd.addEventListener('click', this.addExpensesBlock);
-}
-
-function perSelect() {
-  periodSelect.addEventListener('input', this.getPeriodAmount);
-}
-
-let btnCancelPrg = cancelThis.bind(appData);
-let btnStartPrg = startThis.bind(appData);
-let inComeBlock = incBlock.bind(appData);
-let expensesBlock = expBlock.bind(appData);
-let rangeAmount = perSelect.bind(appData);
-
-
-appData.checkInput();
-rangeAmount();
-btnStartPrg();
-btnCancelPrg();
-inComeBlock();
-expensesBlock();
