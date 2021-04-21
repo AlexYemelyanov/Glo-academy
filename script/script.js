@@ -55,10 +55,17 @@ let appData = {
   deposit: false,
   percentDeposit: 0,
   moneyDeposit: 0,
+  check: function () {
+    if (salaryAmount.value !== '') {
+      () => {
+        btnStart.removeAttribute('disabled', 'disabled');
+      };
+      return;
+    }
+  },
 
 
   start() {
-
 
     if (salaryAmount.value === '') {
       () => {
@@ -76,11 +83,6 @@ let appData = {
 
 
     expensesAdd.disabled = true;
-
-
-
-
-
 
     function buttonCancel() {
       btnStart.style.display = 'none';
@@ -115,6 +117,17 @@ let appData = {
       btnCancel.style.display = 'none';
     }
     buttonStart();
+
+    let allInputs = document.querySelectorAll('input[type=text]');
+    allInputs.forEach((item) => {
+      item.removeAttribute('disabled', 'disabled');
+    });
+
+
+    inComeAdd.disabled = false;
+
+
+    expensesAdd.disabled = false;
 
 
     appData.resetFunk();
