@@ -130,9 +130,9 @@ class AppData {
     this.budget = 0;
     this.income = {};
     this.inComeMonth = 0;
-    this.addIncome = [];
+    this.incomeAdd = [];
     this.expenses = {};
-    this.addExpenses = [];
+    this.expensesAdd = [];
     this.budgetMonth = 0;
     this.expensesMonth = 0;
     this.butgetDay = 0;
@@ -278,17 +278,19 @@ class AppData {
 
   getAddExpInc() {
     const addIt = item => {
-      const startStr = item.className.split('-');
-      console.log(startStr);
-      let addItem = document.querySelectorAll(`.${startStr}-item`);
-      addItem = addItem.trim();
+      let startStr = item.className.split('-')[0];
+      const needWord = startStr[0].split('_')[1];
+      console.log(needWord);
+      let addItem = item.querySelectorAll(`.${startStr}-item .${needWord}-item`);
+      //addItem = addItem.value.trim();
+      console.log(addItem);
       if (addItem !== '') {
-        this
+        this. [needWord] Add.push(addItem);
       }
 
-    }
-    additionalInComeItem.forEach(addIt)
-    additionalExpensesItem.forEach(addIt)
+    };
+    additionalInComeItem.forEach(addIt);
+    additionalExpensesItem.forEach(addIt);
   }
 
   getPeriodAmount() {
