@@ -5,7 +5,7 @@ class Todo {
   constructor(form, input, todolist, todoCompleted, todoContainer) {
     this.form = document.querySelector(form);
     this.input = document.querySelector(input);
-    this.todolist = document.querySelector(todolist);
+    this.todoList = document.querySelector(todolist);
     this.todoCompleted = document.querySelector(todoCompleted);
     this.todoContainer = document.querySelector(todoContainer);
     this.todoData = new Map(JSON.parse(localStorage.getItem('toDoList')));
@@ -16,12 +16,14 @@ class Todo {
     localStorage.setItem('toDoList', JSON.stringify([...this.todoData]))
   }
 
+
   render() {
-    this.todolist.textContent = '';
+    this.todoList.textContent = '';
     this.todoCompleted.textContent = '';
     this.input.textContent = '';
     this.todoData.forEach(this.createItem);
     this.addToStorage();
+
   }
 
   createItem = (todo) => {
@@ -39,7 +41,7 @@ class Todo {
     if (todo.completed) {
       this.todoCompleted.append(li);
     } else {
-      this.todolist.append(li);
+      this.todoList.append(li);
     }
   }
 
@@ -62,29 +64,45 @@ class Todo {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
   }
 
-  deleteItem() {
-    console.log('Привет я delete');
-  }
+  deleteItem(elem) {
+    const liItem = elem.parentNode.parentNode;
 
-  completedItem() {
-    console.log(this.todoData);
-    console.log();
-    this.todoData.forEach(() => {
+    this.todoData.forEach((todoItem) => {
 
-      console.log('this.li');
+      if (todoItem.key === liItem.key) {
+
+        this.todoData.delete(todoItem.key);
+
+
+      }
+      this.render();
+
     })
 
+  }
+
+  completedItem(elem) {
+    const liItem = elem.parentNode.parentNode
+
+    this.todoData.forEach((todoItem) => {
+      if (todoItem.key === liItem.key) {
+        todoItem.completed = !todoItem.completed;
+      }
+    })
+
+    this.render();
   }
 
   handler() {
 
     this.todoContainer.addEventListener('click', () => {
-      console.log(event.target)
+
       if (event.target.matches('button.todo-complete')) {
-        this.completedItem();
+
+        this.completedItem(event.target);
       }
       if (event.target.matches('button.todo-remove')) {
-        this.deleteItem();
+        this.deleteItem(event.target);
       }
     })
 
