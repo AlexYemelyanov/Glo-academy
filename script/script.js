@@ -270,4 +270,152 @@ window.addEventListener('DOMContentLoaded', function () {
     startSlide(1500);
   };
   slider();
+
+  //Change img
+  const changeImg = () => {
+    let command = document.getElementById('command'),
+      commandPhoto = document.querySelectorAll('.command__photo');
+
+
+
+    command.addEventListener('mouseover', () => {
+      if (event.target.matches('.command__photo')) {
+        event.target.alt = event.target.src;
+        event.target.src = event.target.dataset.img;
+      }
+
+    })
+    command.addEventListener('mouseout', () => {
+      console.log(event.target.src)
+
+      if (event.target.matches('.command__photo')) {
+        event.target.src = event.target.alt;
+      }
+    })
+  };
+  changeImg();
+
+  //Validation 
+  const validation = () => {
+    let formName1 = document.getElementById('form1-name'),
+      formEmail1 = document.getElementById('form1-email'),
+      formPhone1 = document.getElementById('form1-phone'),
+      form1 = document.getElementById('form1'),
+      formName2 = document.getElementById('form2-name'),
+      formEmail2 = document.getElementById('form2-email'),
+      formPhone2 = document.getElementById('form2-phone'),
+      form2 = document.getElementById('form2'),
+      message = document.getElementById('form2-message'),
+      calcSqure = document.querySelector('.calc-square'),
+      calcCount = document.querySelector('.calc-count'),
+      calcDay = document.querySelector('.calc-day'),
+      calcBlock = document.querySelector('.calc-block');
+
+
+
+    form1.addEventListener('keydown', (e) => {
+
+      if (e.target === formEmail1) {
+
+        if ((e.keyCode >= 65 && e.keyCode <= 90) ||
+          e.keyCode === 50 || e.keyCode === 49 ||
+          e.keyCode === 56 || e.keyCode === 222 || e.keyCode === 188 ||
+          e.keyCode === 189 || e.keyCode === 190 || e.keyCode === 192 ||
+          e.keyCode === 16) {
+          return;
+        } else {
+          e.preventDefault();
+        };
+      }
+      if (e.target === formName1) {
+
+        if ((e.keyCode >= 65 && e.keyCode <= 90) ||
+          e.keyCode === 186 || e.keyCode === 190 || e.keyCode === 16 ||
+          e.keyCode === 219 || e.keyCode === 222 || e.keyCode === 188 ||
+          e.keyCode === 189 || e.keyCode === 221 || e.keyCode === 192 ||
+          e.keyCode === 16) {
+          return;
+        } else {
+          e.preventDefault();
+        }
+      }
+      if (e.target === formPhone1) {
+        if ((e.keyCode >= 48 && e.keyCode <= 57) ||
+          (e.keyCode >= 96 && e.keyCode <= 105) ||
+          e.keyCode === 16 || e.keyCode === 189) {
+          return;
+        } else {
+          e.preventDefault();
+        }
+      }
+
+    })
+
+    form2.addEventListener('keydown', (e) => {
+
+      if (e.target === formEmail2) {
+        console.log('im here')
+        if ((e.keyCode >= 65 && e.keyCode <= 90) ||
+          e.keyCode === 50 || e.keyCode === 49 ||
+          e.keyCode === 56 || e.keyCode === 222 || e.keyCode === 188 ||
+          e.keyCode === 189 || e.keyCode === 190 || e.keyCode === 192 ||
+          e.keyCode === 16) {
+          return;
+        } else {
+          // e.preventDefault();
+        };
+      }
+      if (e.target === formName2) {
+
+        if ((e.keyCode >= 65 && e.keyCode <= 90) ||
+          e.keyCode === 186 || e.keyCode === 190 || e.keyCode === 16 ||
+          e.keyCode === 219 || e.keyCode === 222 || e.keyCode === 188 ||
+          e.keyCode === 189 || e.keyCode === 221 || e.keyCode === 192 ||
+          e.keyCode === 16) {
+          return;
+        } else {
+          e.preventDefault();
+        }
+      }
+      if (e.target === formPhone2) {
+        if ((e.keyCode >= 48 && e.keyCode <= 57) ||
+          (e.keyCode >= 96 && e.keyCode <= 105) ||
+          e.keyCode === 16 || e.keyCode === 189 || e.keyCode === 16) {
+          return;
+        } else {
+          e.preventDefault();
+        }
+      }
+      if (e.target === message) {
+        if ((e.keyCode >= 65 && e.keyCode <= 90) ||
+          e.keyCode === 186 || e.keyCode === 190 || e.keyCode === 16 ||
+          e.keyCode === 219 || e.keyCode === 222 || e.keyCode === 188 ||
+          e.keyCode === 189 || e.keyCode === 221 || e.keyCode === 192 ||
+          e.keyCode === 16) {
+          return;
+        } else {
+          e.preventDefault();
+        }
+      }
+    })
+
+    calcBlock.addEventListener('keydown', (e) => {
+      if (e.target === calcSqure || calcCount || calcDay) {
+
+        if ((e.keyCode >= 48 && e.keyCode <= 57) ||
+          (e.keyCode >= 96 && e.keyCode <= 105)) {
+          return;
+        } else {
+          e.preventDefault();
+        }
+      }
+    });
+    formEmail1.addEventListener('blur', () => {
+      formEmail1.value = formEmail1.value.replace(/[A-Za-z0-9!'*_~\-.]+@\w+\.\w{2,4}/ig, '');
+      console.log(formEmail1.value);
+    });
+    //console.log(formEmail1.value)
+    //formEmail1.value = formEmail1.value.replace(/[A-Za-z0-9!#$%&'*+/=?^_~-]+(?:\.[A-Za-z0-9!#$%&'*+/=?^_~-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?/ig, '*');
+  };
+  validation();
 });
