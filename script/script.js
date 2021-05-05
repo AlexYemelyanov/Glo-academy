@@ -314,7 +314,8 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
     form1.addEventListener('keydown', (e) => {
-
+      formEmail1.value = formEmail1.value.replace(/[^A-Za-z@!_.~*'\-]*/ig, '');
+      formName1.value = formName1.value.replace(/[^А-Яа-я\-\s]/ig, '')
       if (e.target === formEmail1) {
 
         if ((e.keyCode >= 65 && e.keyCode <= 90) ||
@@ -333,7 +334,7 @@ window.addEventListener('DOMContentLoaded', function () {
           e.keyCode === 186 || e.keyCode === 190 || e.keyCode === 16 ||
           e.keyCode === 219 || e.keyCode === 222 || e.keyCode === 188 ||
           e.keyCode === 189 || e.keyCode === 221 || e.keyCode === 192 ||
-          e.keyCode === 16) {
+          e.keyCode === 16 || e.keyCode === 32) {
           return;
         } else {
           e.preventDefault();
@@ -352,7 +353,9 @@ window.addEventListener('DOMContentLoaded', function () {
     })
 
     form2.addEventListener('keydown', (e) => {
-
+      formEmail2.value = formEmail1.value.replace(/[^A-Za-z@!_.~*'\-]/ig, '');
+      formName2.value = formName1.value.replace(/[^А-Яа-я\-\s]/ig, '');
+      message.value = formName1.value.replace(/[^А-Яа-я\-\s]/ig, '')
       if (e.target === formEmail2) {
         console.log('im here')
         if ((e.keyCode >= 65 && e.keyCode <= 90) ||
@@ -362,7 +365,7 @@ window.addEventListener('DOMContentLoaded', function () {
           e.keyCode === 16) {
           return;
         } else {
-          // e.preventDefault();
+          e.preventDefault();
         };
       }
       if (e.target === formName2) {
@@ -391,7 +394,7 @@ window.addEventListener('DOMContentLoaded', function () {
           e.keyCode === 186 || e.keyCode === 190 || e.keyCode === 16 ||
           e.keyCode === 219 || e.keyCode === 222 || e.keyCode === 188 ||
           e.keyCode === 189 || e.keyCode === 221 || e.keyCode === 192 ||
-          e.keyCode === 16) {
+          e.keyCode === 16 || e.keyCode === 32) {
           return;
         } else {
           e.preventDefault();
@@ -410,12 +413,41 @@ window.addEventListener('DOMContentLoaded', function () {
         }
       }
     });
-    formEmail1.addEventListener('blur', () => {
-      formEmail1.value = formEmail1.value.replace(/[A-Za-z0-9!'*_~\-.]+@\w+\.\w{2,4}/ig, '');
-      console.log(formEmail1.value);
+
+    formEmail1.addEventListener('blur', (e) => {
+      formEmail1.value = formEmail1.value.replace(/\s+/g, ' ').trim()
+      formEmail1.value = formEmail1.value.replace(/[-]+/g, '-')
+      formEmail1.value = formEmail1.value.replace(/^-+|-+$/g, '')
+      console.log(e.target.value);
     });
-    //console.log(formEmail1.value)
-    //formEmail1.value = formEmail1.value.replace(/[A-Za-z0-9!#$%&'*+/=?^_~-]+(?:\.[A-Za-z0-9!#$%&'*+/=?^_~-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?/ig, '*');
+    formEmail2.addEventListener('blur', (e) => {
+      formEmail2.value = formEmail2.value.replace(/\s+/g, ' ').trim()
+      formEmail2.value = formEmail2.value.replace(/[-]+/g, '-')
+      formEmail2.value = formEmail2.value.replace(/^-+|-+$/g, '')
+      console.log(e.target.value);
+    });
+    formName1.addEventListener('blur', (e) => {
+      formName1.value = formName1.value.replace(/\s+/g, ' ').trim()
+      formName1.value = formName1.value.replace(/[-]+/g, '-')
+      formName1.value = formName1.value.replace(/^-+|-+$/g, '');
+      formName1.value = formName1.value.replace(formName1.value[0], formName1.value[0].toUpperCase())
+      console.log(e.target.value);
+    });
+    formName2.addEventListener('blur', (e) => {
+      formName2.value = formName2.value.replace(/\s+/g, ' ').trim()
+      formName2.value = formName2.value.replace(/[-]+/g, '-')
+      formName2.value = formName2.value.replace(/^-+|-+$/g, '');
+      formName2.value = formName2.value.replace(formName2.value[0], formName2.value[0].toUpperCase())
+      console.log(e.target.value);
+    });
+    message.addEventListener('blur', (e) => {
+      message.value = message.value.replace(/\s+/g, ' ').trim()
+      message.value = message.value.replace(/[-]+/g, '-')
+      message.value = message.value.replace(/^-+|-+$/g, '')
+      console.log(e.target.value);
+    });
+
+
   };
   validation();
 });
