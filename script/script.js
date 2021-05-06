@@ -452,7 +452,7 @@ window.addEventListener('DOMContentLoaded', function () {
   validation();
 
   //Calculator
-  const calculator = (price = 100) => {
+  const calculator = (prise = 100) => {
     const calcBlock = document.querySelector('.calc-block'),
       calcType = document.querySelector('.calc-type'),
       calcSquare = document.querySelector('.calc-square'),

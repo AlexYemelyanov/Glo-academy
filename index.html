@@ -405,11 +405,66 @@
 			</div>
 		</div>
 	</div>
-	<script src="/plugins/validator/validator.js"></script>
+	<script src="./plugins/validator/validator.js"></script>
 	<script>
-		const
+		const valid = new Validator({
+			selector: '#form1',
+			pattern: {
+				email: /^\w+@\w+\.\w{2,}$/,
+				phone: /^\+380\d{7}$/,
+				name: /^[А-Яа-яЁё]+$/,
+
+			},
+
+			method: {
+				'form1-email': [
+					['notEmpty'],
+					['pattern', 'email'],
+				],
+
+				'form1-phone': [
+					['notEmpty'],
+					['pattern', 'phone'],
+				],
+
+				'form1-name': [
+					['notEmpty'],
+					['pattern', 'name'],
+				],
+
+			}
+		});
+		const valid2 = new Validator({
+			selector: '#form2',
+			pattern: {
+				email: /^\w+@\w+\.\w{2,}$/,
+				phone: /^\+375\d{9}$/,
+				name: /^[А-Яа-яЁё]+$/,
+				message: /^[А-Яа-яЁё]+$/,
+			},
+			'form2-email': [
+				['notEmpty'],
+				['pattern', 'email'],
+			],
+			'form2-phone': [
+				['notEmpty'],
+				['pattern', 'phone'],
+			],
+			'form2-name': [
+				['notEmpty'],
+				['pattern', 'name'],
+			],
+			'form2-message': [
+				['notEmpty'],
+				['pattern', 'message'],
+			],
+		})
+
+		valid.init();
+		valid2.init();
 	</script>
-	<script src="./script/script.js"></script>
+	<!-- <script src="./script/script.js"></script> 
+		!-->
 </body>
 
 </html>
