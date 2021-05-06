@@ -313,10 +313,10 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
 
-    form1.addEventListener('keydown', (e) => {
+    form1.addEventListener('input', (e) => {
       formEmail1.value = formEmail1.value.replace(/[^A-Za-z@!_.~*'\-]*/ig, '');
-      formName1.value = formName1.value.replace(/[^А-Яа-яЁё\-\s]/ig, '');
-      formPhone1.value = formPhone1.value.replace(/^\+375\d{7}$/, '')
+      formName1.value = formName1.value.replace(/[^А-Яа-яЁё\s]/ig, '');
+      formPhone1.value = formPhone1.value.replace(/[^\+\d]/, '')
       if (e.target === formEmail1) {
 
         if ((e.keyCode >= 65 && e.keyCode <= 90) ||
@@ -345,7 +345,7 @@ window.addEventListener('DOMContentLoaded', function () {
         console.log('im here')
         if ((e.keyCode >= 48 && e.keyCode <= 57) ||
           (e.keyCode >= 96 && e.keyCode <= 105) ||
-          e.keyCode === 16 || e.keyCode === 189) {
+          e.keyCode === 16 || e.keyCode === 189 || e.keyCode === 187) {
           return;
         } else {
           e.preventDefault();
@@ -354,10 +354,11 @@ window.addEventListener('DOMContentLoaded', function () {
 
     })
 
-    form2.addEventListener('keydown', (e) => {
+    form2.addEventListener('input', (e) => {
       formEmail2.value = formEmail1.value.replace(/[^A-Za-z@!_.~*'\-]*/ig, '');
-      formName2.value = formName2.value.replace(/[^А-Яа-яЁё\-\s]/ig, '');
-      message.value = message.value.replace(/[^А-Яа-яЁё\-\s]/ig, '');
+      formName2.value = formName2.value.replace(/[^А-Яа-яЁё\s]/ig, '');
+      message.value = message.value.replace(/[^А-Яа-яЁё\-\s\d,.!?]/ig, '');
+      formPhone2.value = formPhone2.value.replace(/[^\+\d]/, '')
       if (e.target === formEmail2) {
         console.log('im here')
         if ((e.keyCode >= 65 && e.keyCode <= 90) ||
@@ -386,7 +387,7 @@ window.addEventListener('DOMContentLoaded', function () {
         console.log('im here')
         if ((e.keyCode >= 48 && e.keyCode <= 57) ||
           (e.keyCode >= 96 && e.keyCode <= 105) ||
-          e.keyCode === 16 || e.keyCode === 189 || e.keyCode === 16) {
+          e.keyCode === 16 || e.keyCode === 189 || e.keyCode === 16 || e.keyCode === 187) {
           return;
         } else {
           e.preventDefault();
@@ -397,7 +398,7 @@ window.addEventListener('DOMContentLoaded', function () {
           e.keyCode === 186 || e.keyCode === 190 || e.keyCode === 16 ||
           e.keyCode === 219 || e.keyCode === 222 || e.keyCode === 188 ||
           e.keyCode === 189 || e.keyCode === 221 || e.keyCode === 192 ||
-          e.keyCode === 16 || e.keyCode === 32) {
+          e.keyCode === 32) {
           return;
         } else {
           e.preventDefault();
@@ -504,25 +505,92 @@ window.addEventListener('DOMContentLoaded', function () {
   const sendForm = () => {
     const errorMessage = 'Что-то пошло не так...',
       loadMessage = 'Загрузка...',
-      sucsessMessage = 'Спасибо! Мы скоро свяжемся с вами!',
-      form = document.getElementById('form1');
+      sucsessMessage = 'Спасибо! Мы скоро свяжемся с вами!';
+    const form = document.getElementById('form1'),
+      form2 = document.getElementById('form2'),
+      form3 = document.getElementById('form3');
 
     const statusMessage = document.createElement('div');
 
-    statusMessage.style.cssText = 'font-size: 3rem;';
+    statusMessage.style.cssText = 'font-size: 3rem; color: red;';
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       form.appendChild(statusMessage);
-
-      const request = new XMLHttpRequest();
-      request.open('POST', './server.php');
-      request.setRequestHeader('Content-Type', 'multipart/form-data');
+      statusMessage.textContent = loadMessage;
       const formData = new FormData(form);
-      request.send(formData);
 
+      let body = {};
 
-    })
+      formData.forEach((val, key) => {
+        body[key] = val;
+      });
+
+      postData(body, () => {
+        statusMessage.textContent = sucsessMessage;
+      }, (error) => {
+        statusMessage.textContent = errorMessage;
+        console.log(error);
+      });
+      form.reset();
+    });
+    form2.addEventListener('submit', (e) => {
+      e.preventDefault();
+      form2.appendChild(statusMessage);
+      statusMessage.textContent = loadMessage;
+      const formData = new FormData(form2);
+
+      let body = {};
+
+      formData.forEach((val, key) => {
+        body[key] = val;
+      });
+
+      postData(body, () => {
+        statusMessage.textContent = sucsessMessage;
+      }, (error) => {
+        statusMessage.textContent = errorMessage;
+        console.log(error);
+      });
+      form2.reset();
+    });
+    form3.addEventListener('submit', (e) => {
+      e.preventDefault();
+      form3.appendChild(statusMessage);
+      statusMessage.textContent = loadMessage;
+      const formData = new FormData(form2);
+
+      let body = {};
+
+      formData.forEach((val, key) => {
+        body[key] = val;
+      });
+
+      postData(body, () => {
+        statusMessage.textContent = sucsessMessage;
+      }, (error) => {
+        statusMessage.textContent = errorMessage;
+        console.log(error);
+      });
+      form3.reset();
+    });
+    const postData = (body, outputData, errorData) => {
+      const request = new XMLHttpRequest();
+      request.addEventListener('readystatechange', () => {
+        if (request.readyState !== 4) {
+          return;
+        }
+        if (request.status === 200) {
+          outputData();
+        } else {
+          errorData(request.status);
+        }
+      })
+
+      request.open('POST', './server.php');
+      request.setRequestHeader('Content-Type', 'aplication/json');
+      request.send(JSON.stringify(body));
+    }
 
 
 
