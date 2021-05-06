@@ -313,9 +313,9 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
 
-    form1.addEventListener('keydown', (e) => {
+    form1.addEventListener('input', (e) => {
       formEmail1.value = formEmail1.value.replace(/[^A-Za-z@!_.~*'\-]*/ig, '');
-      formName1.value = formName1.value.replace(/[^А-Яа-я\-\s]/ig, '')
+      formName1.value = formName1.value.replace(/[^А-Яа-я\-\s]/ig, '');
       if (e.target === formEmail1) {
 
         if ((e.keyCode >= 65 && e.keyCode <= 90) ||
@@ -352,10 +352,10 @@ window.addEventListener('DOMContentLoaded', function () {
 
     })
 
-    form2.addEventListener('keydown', (e) => {
-      formEmail2.value = formEmail1.value.replace(/[^A-Za-z@!_.~*'\-]/ig, '');
+    form2.addEventListener('input', (e) => {
+      formEmail2.value = formEmail1.value.replace(/[^A-Za-z@!_.~*'\-]*/ig, '');
       formName2.value = formName1.value.replace(/[^А-Яа-я\-\s]/ig, '');
-      message.value = formName1.value.replace(/[^А-Яа-я\-\s]/ig, '')
+      message.value = formName1.value.replace(/[^А-Яа-я\-\s]/ig, '');
       if (e.target === formEmail2) {
         console.log('im here')
         if ((e.keyCode >= 65 && e.keyCode <= 90) ||
@@ -402,7 +402,7 @@ window.addEventListener('DOMContentLoaded', function () {
       }
     })
 
-    calcBlock.addEventListener('keydown', (e) => {
+    calcBlock.addEventListener('input', (e) => {
       if (e.target === calcSqure || calcCount || calcDay) {
 
         if ((e.keyCode >= 48 && e.keyCode <= 57) ||
