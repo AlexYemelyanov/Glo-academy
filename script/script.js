@@ -313,9 +313,10 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
 
-    form1.addEventListener('input', (e) => {
+    form1.addEventListener('keydown', (e) => {
       formEmail1.value = formEmail1.value.replace(/[^A-Za-z@!_.~*'\-]*/ig, '');
-      formName1.value = formName1.value.replace(/[^А-Яа-я\-\s]/ig, '');
+      formName1.value = formName1.value.replace(/[^А-Яа-яЁё\-\s]/ig, '');
+      formPhone1.value = formPhone1.value.replace(/^\+375\d{7}$/, '')
       if (e.target === formEmail1) {
 
         if ((e.keyCode >= 65 && e.keyCode <= 90) ||
@@ -341,6 +342,7 @@ window.addEventListener('DOMContentLoaded', function () {
         }
       }
       if (e.target === formPhone1) {
+        console.log('im here')
         if ((e.keyCode >= 48 && e.keyCode <= 57) ||
           (e.keyCode >= 96 && e.keyCode <= 105) ||
           e.keyCode === 16 || e.keyCode === 189) {
@@ -352,10 +354,10 @@ window.addEventListener('DOMContentLoaded', function () {
 
     })
 
-    form2.addEventListener('input', (e) => {
+    form2.addEventListener('keydown', (e) => {
       formEmail2.value = formEmail1.value.replace(/[^A-Za-z@!_.~*'\-]*/ig, '');
-      formName2.value = formName1.value.replace(/[^А-Яа-я\-\s]/ig, '');
-      message.value = formName1.value.replace(/[^А-Яа-я\-\s]/ig, '');
+      formName2.value = formName2.value.replace(/[^А-Яа-яЁё\-\s]/ig, '');
+      message.value = message.value.replace(/[^А-Яа-яЁё\-\s]/ig, '');
       if (e.target === formEmail2) {
         console.log('im here')
         if ((e.keyCode >= 65 && e.keyCode <= 90) ||
@@ -381,6 +383,7 @@ window.addEventListener('DOMContentLoaded', function () {
         }
       }
       if (e.target === formPhone2) {
+        console.log('im here')
         if ((e.keyCode >= 48 && e.keyCode <= 57) ||
           (e.keyCode >= 96 && e.keyCode <= 105) ||
           e.keyCode === 16 || e.keyCode === 189 || e.keyCode === 16) {
@@ -402,8 +405,8 @@ window.addEventListener('DOMContentLoaded', function () {
       }
     })
 
-    calcBlock.addEventListener('input', (e) => {
-      if (e.target === calcSqure || calcCount || calcDay) {
+    calcBlock.addEventListener('keydown', (e) => {
+      if (e.target === calcSqure || e.target === calcCount || e.target === calcDay) {
 
         if ((e.keyCode >= 48 && e.keyCode <= 57) ||
           (e.keyCode >= 96 && e.keyCode <= 105)) {
@@ -475,7 +478,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
       if (calcDay.value && calcDay.value < 5) {
         dayValue *= 2;
-      } else if (calcDay.value && ccalcDay.value < 10) {
+      } else if (calcDay.value && calcDay.value < 10) {
         dayValue *= 1.5;
       }
 
@@ -496,4 +499,33 @@ window.addEventListener('DOMContentLoaded', function () {
     })
   };
   calculator(100);
+
+  //Send-ajax-form
+  const sendForm = () => {
+    const errorMessage = 'Что-то пошло не так...',
+      loadMessage = 'Загрузка...',
+      sucsessMessage = 'Спасибо! Мы скоро свяжемся с вами!',
+      form = document.getElementById('form1');
+
+    const statusMessage = document.createElement('div');
+
+    statusMessage.style.cssText = 'font-size: 3rem;';
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      form.appendChild(statusMessage);
+
+      const request = new XMLHttpRequest();
+      request.open('POST', './server.php');
+      request.setRequestHeader('Content-Type', 'multipart/form-data');
+      const formData = new FormData(form);
+      request.send(formData);
+
+
+    })
+
+
+
+  };
+  sendForm();
 });
