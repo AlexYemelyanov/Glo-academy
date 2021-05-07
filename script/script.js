@@ -580,16 +580,20 @@ window.addEventListener('DOMContentLoaded', function () {
         body[key] = val;
       });
 
-      postData(body, () => {
-        statusMessage.textContent = sucsessMessage;
-      }, (error) => {
-        statusMessage.textContent = errorMessage;
-        console.log(error);
-      });
-      form.reset();
-      setTimeout(() => {
-        statusMessage.remove();
-      }, 3000)
+      postData(body)
+        .then(() => {
+          statusMessage.textContent = sucsessMessage;
+        })
+        .catch((error) => {
+          statusMessage.textContent = errorMessage;
+          console.log(error);
+        })
+        .finally(() => {
+          form3.reset();
+          setTimeout(() => {
+            statusMessage.remove();
+          }, 3000);
+        });
     });
     form2.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -603,16 +607,20 @@ window.addEventListener('DOMContentLoaded', function () {
         body[key] = val;
       });
 
-      postData(body, () => {
-        statusMessage.textContent = sucsessMessage;
-      }, (error) => {
-        statusMessage.textContent = errorMessage;
-        console.log(error);
-      });
-      form2.reset();
-      setTimeout(() => {
-        statusMessage.remove();
-      }, 3000)
+      postData(body)
+        .then(() => {
+          statusMessage.textContent = sucsessMessage;
+        })
+        .catch((error) => {
+          statusMessage.textContent = errorMessage;
+          console.log(error);
+        })
+        .finally(() => {
+          form3.reset();
+          setTimeout(() => {
+            statusMessage.remove();
+          }, 3000);
+        });
     });
     form3.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -626,38 +634,46 @@ window.addEventListener('DOMContentLoaded', function () {
         body[key] = val;
       });
 
-      postData(body, () => {
-        statusMessage.textContent = sucsessMessage;
-      }, (error) => {
-        statusMessage.textContent = errorMessage;
-        console.log(error);
-      });
-      form3.reset();
-      setTimeout(() => {
-        statusMessage.remove();
-      }, 3000)
+      postData(body)
+        .then(() => {
+          statusMessage.textContent = sucsessMessage;
+        })
+        .catch((error) => {
+          statusMessage.textContent = errorMessage;
+          console.log(error);
+        })
+        .finally(() => {
+          form3.reset();
+          setTimeout(() => {
+            statusMessage.remove();
+          }, 3000);
+        });
     });
-    const postData = (body, outputData, errorData) => {
-      const request = new XMLHttpRequest();
-      request.addEventListener('readystatechange', () => {
-        if (request.readyState !== 4) {
-          return;
-        }
-        if (request.status === 200) {
-          outputData();
-        } else {
-          errorData(request.status);
-        }
+
+    const postData = (body) => {
+      return new Promise((resolve, reject) => {
+        const request = new XMLHttpRequest();
+        request.addEventListener('readystatechange', () => {
+          if (request.readyState !== 4) {
+            return;
+          }
+          if (request.status === 200) {
+            resolve();
+          } else {
+            reject(request.status);
+          }
+        })
+
+        request.open('POST', './server.php');
+        request.setRequestHeader('Content-Type', 'aplication/json');
+        request.send(JSON.stringify(body));
       })
 
-      request.open('POST', './server.php');
-      request.setRequestHeader('Content-Type', 'aplication/json');
-      request.send(JSON.stringify(body));
     }
 
 
+  }
 
-  };
   sendForm();
 
 
