@@ -1,0 +1,24 @@
+{
+  "name": "GloAcademy",
+  "version": "1.0.0",
+  "description": "3dGloAY",
+  "main": "index.js",
+  "scripts": {
+    "watch": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [],
+  "author": "Alexey Yemelyanov",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "devDependencies": {
+    "webpack": "^5.36.2",
+    "webpack-cli": "^4.7.0"
+  }
+}
