@@ -574,22 +574,22 @@ window.addEventListener('DOMContentLoaded', function () {
       statusMessage.textContent = loadMessage;
       const formData = new FormData(form);
 
-      let body = {};
 
-      formData.forEach((val, key) => {
-        body[key] = val;
-      });
 
-      postData(body)
-        .then(() => {
+      postData(formData)
+        .then((response) => {
+          if (response.status !== 200) {
+            throw new Error('Status network is not 200!')
+          }
           statusMessage.textContent = sucsessMessage;
+
         })
         .catch((error) => {
           statusMessage.textContent = errorMessage;
           console.log(error);
         })
         .finally(() => {
-          form3.reset();
+          form.reset();
           setTimeout(() => {
             statusMessage.remove();
           }, 3000);
@@ -601,14 +601,12 @@ window.addEventListener('DOMContentLoaded', function () {
       statusMessage.textContent = loadMessage;
       const formData = new FormData(form2);
 
-      let body = {};
 
-      formData.forEach((val, key) => {
-        body[key] = val;
-      });
-
-      postData(body)
-        .then(() => {
+      postData(formData)
+        .then((response) => {
+          if (response.status !== 200) {
+            throw new Error('Status network is not 200 !')
+          }
           statusMessage.textContent = sucsessMessage;
         })
         .catch((error) => {
@@ -616,7 +614,7 @@ window.addEventListener('DOMContentLoaded', function () {
           console.log(error);
         })
         .finally(() => {
-          form3.reset();
+          form2.reset();
           setTimeout(() => {
             statusMessage.remove();
           }, 3000);
@@ -626,16 +624,19 @@ window.addEventListener('DOMContentLoaded', function () {
       e.preventDefault();
       form3.appendChild(statusMessage);
       statusMessage.textContent = loadMessage;
-      const formData = new FormData(form2);
+      const formData = new FormData(form3);
 
-      let body = {};
+      //let body = {};
 
-      formData.forEach((val, key) => {
-        body[key] = val;
-      });
+      //formData.forEach((val, key) => {
+      //  body[key] = val;
+      //});
 
-      postData(body)
-        .then(() => {
+      postData(formData)
+        .then((response) => {
+          if (response.status !== 200) {
+            throw new Error('Status network is not 200!')
+          }
           statusMessage.textContent = sucsessMessage;
         })
         .catch((error) => {
@@ -650,8 +651,16 @@ window.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    const postData = (body) => {
-      return new Promise((resolve, reject) => {
+    const postData = (formData) => {
+      return fetch('./server.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'aplication/json'
+        },
+        body: JSON.stringify(formData)
+      })
+
+      /*return new Promise((resolve, reject) => {
         const request = new XMLHttpRequest();
         request.addEventListener('readystatechange', () => {
           if (request.readyState !== 4) {
@@ -663,11 +672,10 @@ window.addEventListener('DOMContentLoaded', function () {
             reject(request.status);
           }
         })
-
         request.open('POST', './server.php');
         request.setRequestHeader('Content-Type', 'aplication/json');
         request.send(JSON.stringify(body));
-      })
+      })*/
 
     }
 
