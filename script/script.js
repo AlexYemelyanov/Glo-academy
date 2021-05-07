@@ -309,8 +309,62 @@ window.addEventListener('DOMContentLoaded', function () {
       calcSqure = document.querySelector('.calc-square'),
       calcCount = document.querySelector('.calc-count'),
       calcDay = document.querySelector('.calc-day'),
-      calcBlock = document.querySelector('.calc-block');
+      calcBlock = document.querySelector('.calc-block'),
+      form3 = document.getElementById('form3');
 
+
+    form1.addEventListener('submit', valid1);
+    form2.addEventListener('submit', valid2);
+    form3.addEventListener('submit', valid3);
+
+    const elementForm1 = [],
+      elementForm2 = [],
+      elementForm3 = [];
+    for (const elem of form1.elements) {
+      if (elem.tagName.toLowerCase() !== 'button' &&
+        elem.type !== 'button') {
+        elementForm1.push(elem);
+      }
+    };
+    for (const elem of form2.elements) {
+      if (elem.tagName.toLowerCase() !== 'button' &&
+        elem.type !== 'button') {
+        elementForm2.push(elem);
+      }
+    };
+    for (const elem of form3.elements) {
+      if (elem.tagName.toLowerCase() !== 'button' &&
+        elem.type !== 'button') {
+        elementForm3.push(elem);
+      }
+    };
+
+    function valid1(event) {
+      elementForm1.forEach((elem) => {
+
+        if (!elem.value) {
+          event.preventDefault();
+        }
+      })
+    };
+
+    function valid2(event) {
+      elementForm1.forEach((elem) => {
+
+        if (!elem.value) {
+          event.preventDefault();
+        }
+      })
+    };
+
+    function valid3(event) {
+      elementForm1.forEach((elem) => {
+
+        if (!elem.value) {
+          event.preventDefault();
+        }
+      })
+    };
 
 
     form1.addEventListener('input', (e) => {
@@ -533,6 +587,9 @@ window.addEventListener('DOMContentLoaded', function () {
         console.log(error);
       });
       form.reset();
+      setTimeout(() => {
+        statusMessage.remove();
+      }, 3000)
     });
     form2.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -553,6 +610,9 @@ window.addEventListener('DOMContentLoaded', function () {
         console.log(error);
       });
       form2.reset();
+      setTimeout(() => {
+        statusMessage.remove();
+      }, 3000)
     });
     form3.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -573,6 +633,9 @@ window.addEventListener('DOMContentLoaded', function () {
         console.log(error);
       });
       form3.reset();
+      setTimeout(() => {
+        statusMessage.remove();
+      }, 3000)
     });
     const postData = (body, outputData, errorData) => {
       const request = new XMLHttpRequest();
@@ -596,4 +659,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
   };
   sendForm();
+
+
+
 });
