@@ -1,76 +1,99 @@
-function getNoun(number, one, two, five) {
-  let n = Math.abs(number);
-  n %= 100;
-  if (n >= 5 && n <= 20) {
-    return five;
-  }
-  n %= 10;
-  if (n === 1) {
-    return one;
-  }
-  if (n >= 2 && n <= 4) {
-    return two;
-  }
-  return five;
-}
+'use strict';
 
-function newTypeOfDate() {
-  let date = new Date();
 
-  let weekday = date.getDay();
-  console.log(weekday);
-  let options = {
-    weekday: 'long'
+const todoControl = document.querySelector('.todo-control'),
+  headerInput = document.querySelector('.header-input'),
+  todoList = document.querySelector('.todo-list'),
+  todoCompleted = document.querySelector('.todo-completed'),
+  headerBtn = document.querySelector('.header-button');
+
+const todoData = JSON.parse(localStorage.getItem('toDoList'));;
+
+
+//JSON.parse(localStorage.getItem('toDoList'));
+const addToStorage = () => {
+  localStorage.setItem('toDoList', JSON.stringify([...todoData]))
+};
+
+const render = () => {
+
+
+
+  todoList.textContent = '';
+  todoCompleted.textContent = '';
+  headerInput.textContent = '';
+
+
+  todoData.forEach((item) => {
+
+
+    const li = document.createElement('li');
+
+    li.classList.add('todo-item');
+    li.innerHTML = `
+      <span class="text-todo">${item.value}</span>
+				<div class="todo-buttons">
+					<button class="todo-remove"></button>
+					<button class="todo-complete"></button>
+    `;
+    if (item.completed) {
+      todoCompleted.append(li)
+    } else {
+      todoList.append(li);
+    }
+
+
+
+    const deletedBtn = li.querySelector('.todo-buttons');
+
+
+    deletedBtn.addEventListener('click', (e) => {
+      console.log(e.target)
+      if (e.target.matches('button.todo-complete')) {
+        // console.log(item)
+        completedItem(item);
+      }
+      if (e.target.matches('button.todo-remove')) {
+        // console.log(item)
+        deleteItem(item);
+      }
+
+
+      render();
+    })
+
+    const completedItem = (elem) => {
+      console.log(elem)
+      if (elem.value === item.value) {
+        item.completed = !item.completed;
+      }
+    }
+
+    const deleteItem = (elem) => {
+
+      if (elem.value === item.value) {
+        todoData.splice(elem, 1)
+      }
+    }
+
+  })
+  addToStorage();
+};
+
+todoControl.addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (!headerInput.value) {
+    return;
+  }
+
+  const newTodo = {
+    value: headerInput.value,
+    completed: false,
   };
-  let tdDay = new Intl.DateTimeFormat('ru-RU', options).format(date);
-  let day = date.getDate();
-  let month = date.getMonth();
-  let monthArr = [
-    'января',
-    'февраля',
-    'марта',
-    'апреля',
-    'мая',
-    'июня',
-    'июля',
-    'августа',
-    'сентября',
-    'октября',
-    'ноября',
-    'декабря',
-  ];
-  let year = date.getFullYear();
-  let hours = date.getHours();
-  let minutes = date.getMinutes();
-  let seconds = date.getSeconds();
-  return 'Сегодня ' + tdDay + ',' + day + ' ' + monthArr[month] + ' ' + year + ' года, ' + hours + ' ' + getNoun(hours, 'час', 'часа',
-    'часов') + ' ' + minutes + ' ' + getNoun(minutes, 'минута', 'минуты', 'минут') + ' ' + seconds + ' ' + getNoun(seconds, 'секунда', 'секунды', 'секунд')
 
-}
-setInterval(function () {
-  document.getElementById('current_date_time').innerHTML = newTypeOfDate();
-}, 1000);
+  todoData.push(newTodo);
+  render();
+  todoControl.reset();
+});
 
-
-
-function zeroFirstFormat(value) {
-  if (value < 10) {
-    value = '0' + value;
-  }
-  return value;
-};
-
-function dateTime() {
-  let currentDatetime = new Date();
-  let day = zeroFirstFormat(currentDatetime.getDate());
-  let month = zeroFirstFormat(currentDatetime.getMonth() + 1);
-  let year = currentDatetime.getFullYear();
-  let hours = zeroFirstFormat(currentDatetime.getHours());
-  let minutes = zeroFirstFormat(currentDatetime.getMinutes());
-  let seconds = zeroFirstFormat(currentDatetime.getSeconds());
-
-  return day + '.' + month + '.' + year + ' ' + hours + ':' + minutes + ':' + seconds;
-};
-setInterval(function () {
-  document.getElementById('current_date_time_block').innerHTML = dateTime();
-}, 1000);
+render();
