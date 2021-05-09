@@ -99,7 +99,7 @@ const sendForm = () => {
       headers: {
         'Content-Type': 'aplication/json'
       },
-      body: JSON.stringify(formData)
+      body: formData
     })
 
     /*return new Promise((resolve, reject) => {

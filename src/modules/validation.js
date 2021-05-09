@@ -73,105 +73,22 @@ const validation = () => {
     formEmail1.value = formEmail1.value.replace(/[^A-Za-z@!_.~*'\-]*/ig, '');
     formName1.value = formName1.value.replace(/[^А-Яа-яЁё\s]/ig, '');
     formPhone1.value = formPhone1.value.replace(/[^\+\d]/, '')
-    if (e.target === formEmail1) {
-
-      if ((e.keyCode >= 65 && e.keyCode <= 90) ||
-        e.keyCode === 50 || e.keyCode === 49 ||
-        e.keyCode === 56 || e.keyCode === 222 || e.keyCode === 188 ||
-        e.keyCode === 189 || e.keyCode === 190 || e.keyCode === 192 ||
-        e.keyCode === 16) {
-        return;
-      } else {
-        e.preventDefault();
-      };
-    }
-    if (e.target === formName1) {
-
-      if ((e.keyCode >= 65 && e.keyCode <= 90) ||
-        e.keyCode === 186 || e.keyCode === 190 || e.keyCode === 16 ||
-        e.keyCode === 219 || e.keyCode === 222 || e.keyCode === 188 ||
-        e.keyCode === 189 || e.keyCode === 221 || e.keyCode === 192 ||
-        e.keyCode === 16 || e.keyCode === 32) {
-        return;
-      } else {
-        e.preventDefault();
-      }
-    }
-    if (e.target === formPhone1) {
-      console.log('im here')
-      if ((e.keyCode >= 48 && e.keyCode <= 57) ||
-        (e.keyCode >= 96 && e.keyCode <= 105) ||
-        e.keyCode === 16 || e.keyCode === 189 || e.keyCode === 187) {
-        return;
-      } else {
-        e.preventDefault();
-      }
-    }
 
   })
 
   form2.addEventListener('input', (e) => {
-    formEmail2.value = formEmail1.value.replace(/[^A-Za-z@!_.~*'\-]*/ig, '');
+    formEmail2.value = formEmail2.value.replace(/[^A-Za-z@!_.~*'-]/ig, '');
     formName2.value = formName2.value.replace(/[^А-Яа-яЁё\s]/ig, '');
     message.value = message.value.replace(/[^А-Яа-яЁё\-\s\d,.!?]/ig, '');
     formPhone2.value = formPhone2.value.replace(/[^\+\d]/, '')
-    if (e.target === formEmail2) {
-      console.log('im here')
-      if ((e.keyCode >= 65 && e.keyCode <= 90) ||
-        e.keyCode === 50 || e.keyCode === 49 ||
-        e.keyCode === 56 || e.keyCode === 222 || e.keyCode === 188 ||
-        e.keyCode === 189 || e.keyCode === 190 || e.keyCode === 192 ||
-        e.keyCode === 16) {
-        return;
-      } else {
-        e.preventDefault();
-      };
-    }
-    if (e.target === formName2) {
 
-      if ((e.keyCode >= 65 && e.keyCode <= 90) ||
-        e.keyCode === 186 || e.keyCode === 190 || e.keyCode === 16 ||
-        e.keyCode === 219 || e.keyCode === 222 || e.keyCode === 188 ||
-        e.keyCode === 189 || e.keyCode === 221 || e.keyCode === 192 ||
-        e.keyCode === 16) {
-        return;
-      } else {
-        e.preventDefault();
-      }
-    }
-    if (e.target === formPhone2) {
-      console.log('im here')
-      if ((e.keyCode >= 48 && e.keyCode <= 57) ||
-        (e.keyCode >= 96 && e.keyCode <= 105) ||
-        e.keyCode === 16 || e.keyCode === 189 || e.keyCode === 16 || e.keyCode === 187) {
-        return;
-      } else {
-        e.preventDefault();
-      }
-    }
-    if (e.target === message) {
-      if ((e.keyCode >= 65 && e.keyCode <= 90) ||
-        e.keyCode === 186 || e.keyCode === 190 || e.keyCode === 16 ||
-        e.keyCode === 219 || e.keyCode === 222 || e.keyCode === 188 ||
-        e.keyCode === 189 || e.keyCode === 221 || e.keyCode === 192 ||
-        e.keyCode === 32) {
-        return;
-      } else {
-        e.preventDefault();
-      }
-    }
   })
 
-  calcBlock.addEventListener('keydown', (e) => {
-    if (e.target === calcSqure || e.target === calcCount || e.target === calcDay) {
+  calcBlock.addEventListener('input', (e) => {
+    calcSqure.value = calcSqure.value.replace(/[^\d]/, '')
+    calcCount.value = calcCount.value.replace(/[^\d]/, '')
+    calcDay.value = calcDay.value.replace(/[^\d]/, '')
 
-      if ((e.keyCode >= 48 && e.keyCode <= 57) ||
-        (e.keyCode >= 96 && e.keyCode <= 105)) {
-        return;
-      } else {
-        e.preventDefault();
-      }
-    }
   });
 
   formEmail1.addEventListener('blur', (e) => {

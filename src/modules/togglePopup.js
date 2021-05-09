@@ -11,7 +11,7 @@ const togglePopUp = () => {
       console.log(popupContent.getBoundingClientRect())
       let animateContent = () => {
         animatedInterval = requestAnimationFrame(animateContent);
-        count++;
+        count += 4;
         if (innerWidth > 768) {
           if (count < 40) {
             popupContent.style.left = count + '%';
@@ -20,7 +20,7 @@ const togglePopUp = () => {
           }
         } else {
           cancelAnimationFrame(animatedInterval);
-          popupContent.style.left = document.clientWidth / 2 + 'px';
+          popupContent.style.left = 30 + '%';
         }
       }
       animatedInterval = requestAnimationFrame(animateContent);
