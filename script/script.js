@@ -25,7 +25,9 @@ const render = () => {
 
 
   todoData.forEach((item) => {
-
+    if (!item) {
+      return
+    }
 
     const li = document.createElement('li');
 
