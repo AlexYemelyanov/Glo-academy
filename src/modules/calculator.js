@@ -4,7 +4,8 @@ const calculator = (price = 100) => {
     calcSquare = document.querySelector('.calc-square'),
     calcDay = document.querySelector('.calc-day'),
     calcCount = document.querySelector('.calc-count'),
-    totalValue = document.getElementById('total');
+    totalValue = document.getElementById('total'),
+    calcOptionTitle = document.querySelector('.calc-option-title');
 
 
   const countSum = () => {
@@ -27,7 +28,7 @@ const calculator = (price = 100) => {
 
 
     if (typeValue && squareValue) {
-      total = price * typeValue * squareValue * countValue * dayValue;
+      total = Math.round(price * typeValue * squareValue * countValue * dayValue);
     }
 
     totalValue.textContent = total;
@@ -35,6 +36,14 @@ const calculator = (price = 100) => {
 
   calcBlock.addEventListener('change', (event) => {
     const target = event.target;
+    if (calcType.options[calcType.selectedIndex].value === '') {
+      calcSquare.value = '';
+      calcDay.value = '';
+      calcCount.value = '';
+    }
+
+    console.log(calcType.options[calcType.selectedIndex].value)
+
     if (target.matches('.calc-type') || target.matches('.calc-square') ||
       target.matches('.calc-day') || target.matches('.calc-count')) {
       countSum();

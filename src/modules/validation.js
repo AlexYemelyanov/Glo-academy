@@ -42,6 +42,7 @@ const validation = () => {
   };
 
   function valid1(event) {
+
     elementForm1.forEach((elem) => {
 
       if (!elem.value) {
@@ -51,7 +52,8 @@ const validation = () => {
   };
 
   function valid2(event) {
-    elementForm1.forEach((elem) => {
+
+    elementForm2.forEach((elem) => {
 
       if (!elem.value) {
         event.preventDefault();
@@ -60,7 +62,8 @@ const validation = () => {
   };
 
   function valid3(event) {
-    elementForm1.forEach((elem) => {
+
+    elementForm3.forEach((elem) => {
 
       if (!elem.value) {
         event.preventDefault();
@@ -70,9 +73,9 @@ const validation = () => {
 
 
   form1.addEventListener('input', (e) => {
-    formEmail1.value = formEmail1.value.replace(/[^A-Za-z@!_.~*'\-]*/ig, '');
+    formEmail1.value = formEmail1.value.replace(/[^A-Za-z@!_.~*'-]*/ig, '');
     formName1.value = formName1.value.replace(/[^А-Яа-яЁё\s]/ig, '');
-    formPhone1.value = formPhone1.value.replace(/[^\+\d]/, '')
+    formPhone1.value = formPhone1.value.replace(/[^\+()\d]/ig, '')
 
   })
 

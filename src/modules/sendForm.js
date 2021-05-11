@@ -16,9 +16,13 @@ const sendForm = () => {
     statusMessage.textContent = loadMessage;
     const formData = new FormData(form);
 
+    let body = {};
 
-
-    postData(formData)
+    formData.forEach((val, key) => {
+      body[key] = val;
+    });
+    console.log(body)
+    postData(body)
       .then((response) => {
         if (response.status !== 200) {
           throw new Error('Status network is not 200!')
@@ -41,10 +45,14 @@ const sendForm = () => {
     e.preventDefault();
     form2.appendChild(statusMessage);
     statusMessage.textContent = loadMessage;
-    const formData = new FormData(form2);
+    const formData2 = new FormData(form2);
+    let body = {};
 
+    formData.forEach((val, key) => {
+      body[key] = val;
+    });
 
-    postData(formData)
+    postData(body)
       .then((response) => {
         if (response.status !== 200) {
           throw new Error('Status network is not 200 !')
@@ -66,15 +74,15 @@ const sendForm = () => {
     e.preventDefault();
     form3.appendChild(statusMessage);
     statusMessage.textContent = loadMessage;
-    const formData = new FormData(form3);
+    const formData3 = new FormData(form3);
 
-    //let body = {};
+    let body = {};
 
-    //formData.forEach((val, key) => {
-    //  body[key] = val;
-    //});
+    formData.forEach((val, key) => {
+      body[key] = val;
+    });
 
-    postData(formData)
+    postData(body)
       .then((response) => {
         if (response.status !== 200) {
           throw new Error('Status network is not 200!')
@@ -93,14 +101,14 @@ const sendForm = () => {
       });
   });
 
-  const postData = (formData) => {
+  const postData = (body) => {
     return fetch('./server.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'aplication/json'
       },
-      body: formData
-    })
+      body: JSON.stringify(body)
+    });
 
     /*return new Promise((resolve, reject) => {
       const request = new XMLHttpRequest();
