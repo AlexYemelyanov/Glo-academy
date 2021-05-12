@@ -12,7 +12,6 @@ const changeImg = () => {
 
   })
   command.addEventListener('mouseout', () => {
-    console.log(event.target.src)
 
     if (event.target.matches('.command__photo')) {
       event.target.src = event.target.alt;
